@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SchoolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CourseCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblInstructor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InstructorName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InstructorContact" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblInstructorCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="InstructorId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblInstructorCourse_tblCourse">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
+          <End Role="tblInstructorCourse" Type="Self.tblInstructorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblInstructorCourse">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblInstructorCourse_tblInstructor">
+          <End Role="tblInstructor" Type="Self.tblInstructor" Multiplicity="1" />
+          <End Role="tblInstructorCourse" Type="Self.tblInstructorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblInstructor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblInstructorCourse">
+              <PropertyRef Name="InstructorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SchoolDBModelStoreContainer">
+          <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblInstructor" EntityType="Self.tblInstructor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblInstructorCourse" EntityType="Self.tblInstructorCourse" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblInstructorCourse_tblCourse" Association="Self.FK_tblInstructorCourse_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourse" />
+            <End Role="tblInstructorCourse" EntitySet="tblInstructorCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblInstructorCourse_tblInstructor" Association="Self.FK_tblInstructorCourse_tblInstructor">
+            <End Role="tblInstructor" EntitySet="tblInstructor" />
+            <End Role="tblInstructorCourse" EntitySet="tblInstructorCourse" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchoolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CourseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblInstructorCourses" Relationship="Self.FK_tblInstructorCourse_tblCourse" FromRole="tblCourse" ToRole="tblInstructorCourse" />
+        </EntityType>
+        <EntityType Name="tblInstructor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InstructorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InstructorContact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblInstructorCourses" Relationship="Self.FK_tblInstructorCourse_tblInstructor" FromRole="tblInstructor" ToRole="tblInstructorCourse" />
+        </EntityType>
+        <EntityType Name="tblInstructorCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="InstructorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCourse" Relationship="Self.FK_tblInstructorCourse_tblCourse" FromRole="tblInstructorCourse" ToRole="tblCourse" />
+          <NavigationProperty Name="tblInstructor" Relationship="Self.FK_tblInstructorCourse_tblInstructor" FromRole="tblInstructorCourse" ToRole="tblInstructor" />
+        </EntityType>
+        <Association Name="FK_tblInstructorCourse_tblCourse">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
+          <End Role="tblInstructorCourse" Type="Self.tblInstructorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblInstructorCourse">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblInstructorCourse_tblInstructor">
+          <End Role="tblInstructor" Type="Self.tblInstructor" Multiplicity="1" />
+          <End Role="tblInstructorCourse" Type="Self.tblInstructorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblInstructor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblInstructorCourse">
+              <PropertyRef Name="InstructorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SchoolDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCourses" EntityType="Self.tblCourse" />
+          <EntitySet Name="tblInstructors" EntityType="Self.tblInstructor" />
+          <EntitySet Name="tblInstructorCourses" EntityType="Self.tblInstructorCourse" />
+          <AssociationSet Name="FK_tblInstructorCourse_tblCourse" Association="Self.FK_tblInstructorCourse_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourses" />
+            <End Role="tblInstructorCourse" EntitySet="tblInstructorCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblInstructorCourse_tblInstructor" Association="Self.FK_tblInstructorCourse_tblInstructor">
+            <End Role="tblInstructor" EntitySet="tblInstructors" />
+            <End Role="tblInstructorCourse" EntitySet="tblInstructorCourses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchoolDBModelStoreContainer" CdmEntityContainer="SchoolDBEntities">
+          <EntitySetMapping Name="tblCourses">
+            <EntityTypeMapping TypeName="SchoolDBModel.tblCourse">
+              <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInstructors">
+            <EntityTypeMapping TypeName="SchoolDBModel.tblInstructor">
+              <MappingFragment StoreEntitySet="tblInstructor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InstructorName" ColumnName="InstructorName" />
+                <ScalarProperty Name="InstructorContact" ColumnName="InstructorContact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInstructorCourses">
+            <EntityTypeMapping TypeName="SchoolDBModel.tblInstructorCourse">
+              <MappingFragment StoreEntitySet="tblInstructorCourse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

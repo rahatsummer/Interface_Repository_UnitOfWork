@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnderstandRepo.UI", "UnderstandRepo.UI\UnderstandRepo.UI.csproj", "{3A1A1818-80AB-4EEC-9BD4-8FC0824BC601}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnderstandingRepostiory.DAL", "UnderstandingRepostiory.DAL\UnderstandingRepostiory.DAL.csproj", "{11C0FF1A-D31E-4403-9C63-FF67E9317724}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A1A1818-80AB-4EEC-9BD4-8FC0824BC601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1A1818-80AB-4EEC-9BD4-8FC0824BC601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1A1818-80AB-4EEC-9BD4-8FC0824BC601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1A1818-80AB-4EEC-9BD4-8FC0824BC601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C0FF1A-D31E-4403-9C63-FF67E9317724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C0FF1A-D31E-4403-9C63-FF67E9317724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C0FF1A-D31E-4403-9C63-FF67E9317724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C0FF1A-D31E-4403-9C63-FF67E9317724}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
